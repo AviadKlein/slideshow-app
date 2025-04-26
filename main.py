@@ -45,17 +45,6 @@ class SlideshowApp:
         return background
 
 
-    def load_image1(self, filename):
-        path = os.path.join(self.folder_path, filename)
-        img = Image.open(path)
-    
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-    
-        img.thumbnail((screen_width, screen_height), Image.LANCZOS)
-        return img
-
-
     def show_image(self, img):
         self.tk_image = ImageTk.PhotoImage(img)
         self.label.config(image=self.tk_image)
