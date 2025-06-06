@@ -2,8 +2,10 @@ import os
 import random
 import tkinter as tk
 from PIL import Image, ImageTk, ImageEnhance, ImageOps
+from pathlib import Path
+import argparse
 
-folder_path = 'C:\\Users\\11User\\Desktop\\slideshow-app\\pics'
+
 
 class SlideshowApp:
     def __init__(self, root, folder_path, transition_time=1000, display_time=4000, steps=50):
@@ -68,13 +70,21 @@ class SlideshowApp:
             self.current_image = self.next_image_obj
             self.root.after(self.display_time, self.start_transition)
 
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--path', required=True)
+    args = parser.parse_args()
+    folder_path = Path(args.path)
+    
+    print("Starting app...")
+    root = tk.Tk()
+    root.configure(bg='black')
+    root.attributes('-fullscreen', True)  # Make it full screen
 
-print("Starting app...")
-root = tk.Tk()
-root.configure(bg='black')
-root.attributes('-fullscreen', True)  # Make it full screen
+    app = SlideshowApp(root, folder_path)
+    print("Running mainloop...")
+    root.mainloop()
+    print("App finished.")
 
-app = SlideshowApp(root, folder_path)
-print("Running mainloop...")
-root.mainloop()
-print("App finished.")
+if __name__ == "__main__":
+    main()
